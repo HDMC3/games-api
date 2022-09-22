@@ -12,7 +12,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddAuthorization();
 
-        builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite());
+        builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite(builder.Configuration["CONNECTION_STRING"]));
 
         var app = builder.Build();
 
