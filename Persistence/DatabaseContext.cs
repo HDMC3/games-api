@@ -15,6 +15,7 @@ public class DatabaseContext : DbContext {
     public DbSet<Platform> Platforms { get; set; }
     public DbSet<Release> Releases { get; set; }
     public DbSet<ReviewScore> ReviewScores { get; set; }
+    public DbSet<Soundtrack> Soundtracks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.Load("Persistence"));
