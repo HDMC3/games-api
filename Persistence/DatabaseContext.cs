@@ -1,3 +1,4 @@
+using System.Reflection;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,6 @@ public class DatabaseContext : DbContext {
     public DbSet<ReviewScore> ReviewScores { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
-        
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.Load("Persistence"));
     }
 }
