@@ -14,6 +14,7 @@ public class Game {
     public ICollection<GameGenre> GameGenres { get; set; }
     public ICollection<Release> Releases { get; set; }
     public ICollection<ReviewScore> ReviewScores { get; set; }
+    public ICollection<Soundtrack> Soundtracks { get; set; }
     public Game(string name, string publisher, Developer developer, Engine engine) {
         Name = name;
         Publisher = publisher;
@@ -22,5 +23,6 @@ public class Game {
         GameGenres = new List<GameGenre>();
         Releases = new List<Release>();
         ReviewScores = new List<ReviewScore>();
+        Soundtracks = new List<Soundtrack>();
     }
 }
