@@ -12,7 +12,6 @@ public class GameConfiguration : IEntityTypeConfiguration<Game> {
         builder.Property(g => g.DeveloperId).HasColumnName("developer_id");
         builder.Property(g => g.EngineId).HasColumnName("engine_id");
         builder.Property(g => g.Publisher).HasColumnName("publisher");
-        builder.Property(g => g.SoundtrackUrl).HasColumnName("soundtrack_url");
         builder.Property(g => g.Web).HasColumnName("web");
         
         builder.HasKey(game => game.Id);
