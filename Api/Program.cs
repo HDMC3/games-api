@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Persistence;
+
 namespace Api;
 
 public class Program
@@ -8,6 +11,8 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddAuthorization();
+
+        builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite());
 
         var app = builder.Build();
 
