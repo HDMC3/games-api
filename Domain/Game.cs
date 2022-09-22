@@ -1,6 +1,7 @@
 namespace Domain;
 
 public class Game {
+    protected Game() {}
     public int Id { get; set; }
     public string Name { get; private set; }
     public string Publisher { get; private set; }

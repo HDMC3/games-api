@@ -1,6 +1,7 @@
 namespace Domain;
 
 public class GameGenre {
+    protected GameGenre() {}
     public int GameId { get; private set; }
     public Game Game { get; set; }
     public int GenreId { get; private set; }
