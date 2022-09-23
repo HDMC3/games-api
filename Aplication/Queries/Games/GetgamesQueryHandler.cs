@@ -25,7 +25,7 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
         {
             var soundtracks = await _dbContext.Soundtracks
                 .Where(soundtrack => soundtrack.GameId == game.Id)
-                .Select(soundtrack => new GameSoundtrackDto(soundtrack.Id, soundtrack.Name))
+                .Select(soundtrack => new GameSoundtrackDto(soundtrack.Id, soundtrack.Web))
                 .ToListAsync();
 
             var reviewScores = await _dbContext.ReviewScores
