@@ -1,3 +1,5 @@
+using System.Reflection;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -13,6 +15,8 @@ public class Program
         builder.Services.AddAuthorization();
 
         builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite(builder.Configuration["CONNECTION_STRING"]));
+
+        builder.Services.AddMediatR(Assembly.Load("Aplication"));
 
         var app = builder.Build();
 
