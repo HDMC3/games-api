@@ -14,7 +14,7 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
 
     public async Task<List<GameDto>> Handle(GetGamesQuery request, CancellationToken cancellationToken)
     {
-        int limit = request.limit != null ? (int)request.limit : 5;
+        int limit = request.limit != null && request.limit > 0 ? (int)request.limit : 5;
         var games = new List<Game>();
         if (request.filter == Enums.GameFilter.Name) {
             var name = (string)request.filterValue;
