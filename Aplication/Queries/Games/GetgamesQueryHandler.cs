@@ -1,4 +1,5 @@
 using Aplication.Queries.Games.DTOs;
+using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -14,11 +15,20 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
     public async Task<List<GameDto>> Handle(GetGamesQuery request, CancellationToken cancellationToken)
     {
         int limit = request.limit != null ? (int)request.limit : 5;
-        
-        var games = await _dbContext.Games
-            .Include(g => g.Developer)
-            .Include(g => g.Engine)
-            .Take(limit).ToListAsync();
+        var games = new List<Game>();
+        if (request.filter == Enums.GameFilter.Name) {
+            var name = (string)request.filterValue;
+            games = await _dbContext.Games
+                .Where(game => game.Name.ToLower().Contains(name.Trim().ToLower()))
+                .Include(g => g.Developer)
+                .Include(g => g.Engine)
+                .Take(limit).ToListAsync();
+        } else {
+            games = await _dbContext.Games
+                .Include(g => g.Developer)
+                .Include(g => g.Engine)
+                .Take(limit).ToListAsync();
+        }
         var response = new List<GameDto>();
         
         foreach (var game in games)
