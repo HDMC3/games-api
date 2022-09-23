@@ -1,4 +1,5 @@
 using System.Reflection;
+using Aplication.Queries.Games;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -29,7 +30,11 @@ public class Program
 
         app.UseAuthorization();
 
-        app.MapGet("/", () => "Hello world!");
+        app.MapGet("/games", async (int? limit, IMediator mediator) => {
+            var command = new GetGamesQuery(limit);
+            var response = await mediator.Send(command);
+            return Results.Ok(response);
+        });
 
         app.Run();
     }
