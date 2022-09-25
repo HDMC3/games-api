@@ -2,7 +2,6 @@ using System.Reflection;
 using Aplication.Queries.Games;
 using Aplication.Queries.Games.Enums;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Api;
@@ -16,8 +15,8 @@ public class Program
         // Add services to the container.
         builder.Services.AddAuthorization();
 
-        builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite(builder.Configuration["CONNECTION_STRING"]));
-
+        builder.Services.AddPersistence(builder.Configuration);
+        
         builder.Services.AddMediatR(Assembly.Load("Aplication"));
 
         var app = builder.Build();
