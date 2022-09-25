@@ -12,9 +12,12 @@ public class GameRepository : IGameRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Game> GetGameById(int id)
+    public async Task<Game> GetGameById(int? id)
     {
-        var game = await _dbContext.Games.FindAsync(id);
+        var game = await _dbContext.Games
+            .Include(game => game.Developer)
+            .Include(game => game.Engine)
+            .FirstOrDefaultAsync(game => game.Id == id);
         return game;
     }
 

@@ -31,6 +31,11 @@ public class Program
         app.UseAuthorization();
 
         app.MapGet("/games", async (int? id, string? name, int? limit, IMediator mediator) => {
+            if (id != null) {
+                var game = await mediator.Send(new GetGameByIdQuery{id = id});
+                return Results.Ok(game);
+            }
+            
             var command = new GetGamesQuery(GameFilter.None, true, limit);
             if (name != null) {
                 command = new GetGamesQuery(GameFilter.Name, name, limit);

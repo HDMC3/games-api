@@ -4,7 +4,7 @@ namespace Aplication.Interfaces.Repositories;
 
 public interface IGameRepository {
     Task<int> GetTotalGames();
-    Task<Game> GetGameById(int id);
+    Task<Game> GetGameById(int? id);
     Task<IReadOnlyList<Game>> GetGames(int limit);
     Task<IReadOnlyList<Game>> GetGamesByName(string name, int limit);
     Task<IReadOnlyList<Game>> GetGamesByGenre(int genreId, int limit);
