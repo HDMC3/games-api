@@ -1,59 +1,63 @@
+using Aplication.Interfaces.Repositories;
 using Aplication.Queries.Games.DTOs;
 using Domain;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
 
 namespace Aplication.Queries.Games;
 
 public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>> {
-    private readonly DatabaseContext _dbContext;
-    public GetGamesQueryHandler(DatabaseContext dbContext) {
-        _dbContext = dbContext;
+    private readonly IGameRepository _gameRepository;
+    private readonly ISoundtrackRepository _soundtrackRepository;
+    private readonly IReviewScoreRepository _reviewScoreRepository;
+    private readonly IReleaseRepository _releaseRepository;
+    private readonly IGenreRepository _genreRepository;
+    
+    public GetGamesQueryHandler(
+        IGameRepository gameRepository,
+        ISoundtrackRepository soundtrackRepository,
+        IReviewScoreRepository reviewScoreRepository,
+        IReleaseRepository releaseRepository,
+        IGenreRepository genreRepository
+    ) {
+        _gameRepository = gameRepository;
+        _soundtrackRepository = soundtrackRepository;
+        _reviewScoreRepository = reviewScoreRepository;
+        _releaseRepository = releaseRepository;
+        _genreRepository = genreRepository;
     }
 
     public async Task<List<GameDto>> Handle(GetGamesQuery request, CancellationToken cancellationToken)
     {
         int limit = request.limit != null && request.limit > 0 ? (int)request.limit : 5;
-        var games = new List<Game>();
+        IReadOnlyList<Game> games = new List<Game>();
         if (request.filter == Enums.GameFilter.Name) {
             var name = (string)request.filterValue;
-            games = await _dbContext.Games
-                .Where(game => game.Name.ToLower().Contains(name.Trim().ToLower()))
-                .Include(g => g.Developer)
-                .Include(g => g.Engine)
-                .Take(limit).ToListAsync();
+            games = await _gameRepository.GetGamesByName(name, limit);
+            
         } else {
-            games = await _dbContext.Games
-                .Include(g => g.Developer)
-                .Include(g => g.Engine)
-                .Take(limit).ToListAsync();
+            games = await _gameRepository.GetGames(limit);
         }
         var response = new List<GameDto>();
         
         foreach (var game in games)
         {
-            var soundtracks = await _dbContext.Soundtracks
-                .Where(soundtrack => soundtrack.GameId == game.Id)
+            var soundtracks = await _soundtrackRepository.GetGameSoundtracks(game.Id);
+            var gameSoundtracks = soundtracks
                 .Select(soundtrack => new GameSoundtrackDto(soundtrack.Id, soundtrack.Web))
-                .ToListAsync();
+                .ToList();
 
-            var reviewScores = await _dbContext.ReviewScores
-                .Where(review => review.GameId == game.Id)
+            var reviewScores = await _reviewScoreRepository.GetGameReviewScores(game.Id);
+            var gameReviewScores = reviewScores
                 .Select(review => new GameReviewScoreDto(review.Reviewer, review.Score))
-                .ToListAsync();
+                .ToList();
 
-            var releases = await _dbContext.Releases
-                .Include(release => release.Platform)
-                .Where(release => release.GameId == game.Id)
+            var releases = await _releaseRepository.GetGameReleases(game.Id);
+            var gameReleases = releases
                 .Select(release => new GameReleaseDto(release.Platform.Name, release.Date))
-                .ToListAsync();
+                .ToList();
 
-            var genres = await _dbContext.GameGenres
-                .Include(gameGenre => gameGenre.Game)
-                .Where(gameGenre => gameGenre.GameId == game.Id)
-                .Select(gameGenre => gameGenre.Genre.Name)
-                .ToListAsync();
+            var genres = await _genreRepository.GetGameGenres(game.Id);
+            var gameGenres = genres.Select(gameGenre => gameGenre.Genre.Name).ToList();
 
             response.Add(new GameDto{
                 id = game.Id,
@@ -62,10 +66,10 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
                 web = game.Web,
                 publisher = game.Publisher,
                 engine = new GameEngineDto(game.EngineId, game.Engine.Name, game.Engine.Web),
-                genres = genres,
-                releases = releases,
-                reviews = reviewScores,
-                soundtracks = soundtracks
+                genres = gameGenres,
+                releases = gameReleases,
+                reviews = gameReviewScores,
+                soundtracks = gameSoundtracks
             });
         }
         return response;
