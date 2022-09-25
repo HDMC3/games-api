@@ -15,6 +15,7 @@ public class GenreRepository : IGenreRepository {
     {
         var genres = await _dbContext.GameGenres
             .Include(gameGenre => gameGenre.Game)
+            .Include(gameGenre => gameGenre.Genre)
             .Where(gameGenre => gameGenre.GameId == gameId)
             .ToListAsync();
 
