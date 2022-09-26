@@ -1,6 +1,7 @@
 using System.Reflection;
 using Aplication.Queries.Games;
 using Aplication.Queries.Games.Enums;
+using Aplication.Queries.Soundtracks;
 using MediatR;
 using Persistence;
 
@@ -64,6 +65,12 @@ public class Program
 
         app.MapGet("/games/platform/{id}", async (int id, int? limit, IMediator mediator) => {
             var command = new GetGamesQuery(GameFilter.Platform, id, limit);
+            var response = await mediator.Send(command);
+            return response;
+        });
+
+        app.MapGet("/soundtracks", async (int? id, int? limit, IMediator mediator) => {
+            var command = new GetSoundtracksQuery(limit);
             var response = await mediator.Send(command);
             return response;
         });
