@@ -92,9 +92,13 @@ public class Program
         });
 
         app.MapGet("/engines", async (int? id, int? limit, IMediator mediator) => {
+            if (id != null) {
+                var engine = await mediator.Send(new GetEngineByIdQuery((int)id));
+                return Results.Ok(engine);
+            }
             var command = new GetEnginesQuery(limit);
             var response = await mediator.Send(command);
-            return response;
+            return Results.Ok(response);
         });
 
         app.Run();
