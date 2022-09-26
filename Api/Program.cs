@@ -1,5 +1,6 @@
 using System.Reflection;
 using Aplication.Queries.Developers;
+using Aplication.Queries.Engines;
 using Aplication.Queries.Games;
 using Aplication.Queries.Games.Enums;
 using Aplication.Queries.Soundtracks;
@@ -88,6 +89,12 @@ public class Program
             var command = new GetDevelopersQuery(limit);
             var response = await mediator.Send(command);
             return Results.Ok(response);
+        });
+
+        app.MapGet("/engines", async (int? id, int? limit, IMediator mediator) => {
+            var command = new GetEnginesQuery(limit);
+            var response = await mediator.Send(command);
+            return response;
         });
 
         app.Run();
