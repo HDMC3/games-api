@@ -77,9 +77,18 @@ public class GameRepository : IGameRepository
         return games;
     }
 
-    public Task<IReadOnlyList<Game>> GetGamesByPlatform(int platformId, int limit)
+    public async Task<IReadOnlyList<Game>> GetGamesByPlatform(int platformId, int limit)
     {
-        throw new NotImplementedException();
+        var games = await _dbContext.Releases
+            .Include(release => release.Game)
+            .ThenInclude(game => game.Developer)
+            .Include(release => release.Game)
+            .ThenInclude(game => game.Engine)
+            .Where(release => release.PlatformId == platformId)
+            .Select(release => release.Game)
+            .Take(limit).ToListAsync();
+
+        return games;
     }
 
     public Task<int> GetTotalGames()

@@ -45,8 +45,8 @@ public class GetGameByIdQueryHandler : IRequestHandler<GetGameByIdQuery, GameDto
         var gameDto = new GameDto {
             id = game.Id,
             name = game.Name,
-            developer = new GameDeveloperDto(game.Id, game.Developer.Name, game.Developer.Web),
-            engine = new GameEngineDto(game.EngineId, game.Engine.Name, game.Engine.Web),
+            developer = new GameDeveloperDto(game.Id, game.Developer.Name),
+            engine = new GameEngineDto(game.EngineId, game.Engine.Name),
             publisher = game.Publisher,
             web = game.Web,
             soundtracks = gameSoundtracks,

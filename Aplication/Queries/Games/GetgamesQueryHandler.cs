@@ -40,6 +40,8 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
             games = await _gameRepository.GetGamesByEngine((int)request.filterValue, limit);
         } else if(request.filter == Enums.GameFilter.Genre) {
             games = await _gameRepository.GetGamesByGenre((int)request.filterValue, limit);
+        } else if(request.filter == Enums.GameFilter.Platform) {
+            games = await _gameRepository.GetGamesByPlatform((int)request.filterValue, limit);
         } else {
             games = await _gameRepository.GetGames(limit);
         }
@@ -68,10 +70,10 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
             response.Add(new GameDto{
                 id = game.Id,
                 name = game.Name,
-                developer = new GameDeveloperDto(game.DeveloperId, game.Developer.Name, game.Developer.Web),
+                developer = new GameDeveloperDto(game.DeveloperId, game.Developer.Name),
                 web = game.Web,
                 publisher = game.Publisher,
-                engine = new GameEngineDto(game.EngineId, game.Engine.Name, game.Engine.Web),
+                engine = new GameEngineDto(game.EngineId, game.Engine.Name),
                 genres = gameGenres,
                 releases = gameReleases,
                 reviews = gameReviewScores,
