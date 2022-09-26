@@ -56,6 +56,12 @@ public class Program
             return response;
         });
 
+        app.MapGet("/games/genre/{id}", async (int id, int? limit, IMediator mediator) => {
+            var command = new GetGamesQuery(GameFilter.Genre, id, limit);
+            var response = await mediator.Send(command);
+            return response;
+        });
+
         app.Run();
     }
 }
