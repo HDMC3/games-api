@@ -81,6 +81,10 @@ public class Program
         });
 
         app.MapGet("/developers", async (int? id, int? limit, IMediator mediator) => {
+            if (id != null) {
+                var developer = await mediator.Send(new GetDeveloperbyIdQuery((int)id));
+                return Results.Ok(developer);
+            }
             var command = new GetDevelopersQuery(limit);
             var response = await mediator.Send(command);
             return Results.Ok(response);
