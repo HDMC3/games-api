@@ -14,5 +14,6 @@ public static class PersistenceRegistration {
         services.AddTransient<IReleaseRepository, ReleaseRepository>();
         services.AddTransient<IReviewScoreRepository, ReviewScoreRepository>();
         services.AddTransient<ISoundtrackRepository, SoundtrackRepository>();
+        services.AddTransient<IDeveloperRepository, DeveloperRepository>();
     }
 }
