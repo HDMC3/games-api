@@ -70,9 +70,13 @@ public class Program
         });
 
         app.MapGet("/soundtracks", async (int? id, int? limit, IMediator mediator) => {
+            if (id != null) {
+                var soundtrack = await mediator.Send(new GetSoundtrackByIdQuery((int)id));
+                return Results.Ok(soundtrack);
+            }
             var command = new GetSoundtracksQuery(limit);
             var response = await mediator.Send(command);
-            return response;
+            return Results.Ok(response);
         });
 
         app.Run();
