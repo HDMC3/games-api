@@ -11,6 +11,7 @@ public class SoundtrackConfiguration : IEntityTypeConfiguration<Soundtrack>
         builder.Property(s => s.Id).HasColumnName("id");
         builder.Property(s => s.Name).HasColumnName("name");
         builder.Property(s => s.Web).HasColumnName("web");
+        builder.Property(s => s.Composer).HasColumnName("composer");
         builder.Property(s => s.GameId).HasColumnName("game_id");
 
         builder.HasKey(soundtrack => soundtrack.Id);
