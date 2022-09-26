@@ -25,4 +25,14 @@ public class SoundtrackRepository : ISoundtrackRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task<IReadOnlyList<Soundtrack>> GetSoundtracks(int limit)
+    {
+        var soundtracks = await _dbContext.Soundtracks
+            .Include(soundtrack => soundtrack.Game)
+            .ThenInclude(game => game.Developer)
+            .Take(limit).ToListAsync();
+
+        return soundtracks;
+    }
 }
