@@ -30,10 +30,12 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
     {
         int limit = request.limit != null && request.limit > 0 ? (int)request.limit : 5;
         IReadOnlyList<Game> games = new List<Game>();
+
         if (request.filter == Enums.GameFilter.Name) {
             var name = (string)request.filterValue;
             games = await _gameRepository.GetGamesByName(name, limit);
-            
+        } else if(request.filter == Enums.GameFilter.Developer) {
+            games = await _gameRepository.GetGamesByDeveloper((int)request.filterValue, limit);
         } else {
             games = await _gameRepository.GetGames(limit);
         }

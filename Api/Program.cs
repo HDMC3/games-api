@@ -35,13 +35,19 @@ public class Program
                 var game = await mediator.Send(new GetGameByIdQuery{id = id});
                 return Results.Ok(game);
             }
-            
+
             var command = new GetGamesQuery(GameFilter.None, true, limit);
             if (name != null) {
                 command = new GetGamesQuery(GameFilter.Name, name, limit);
             }
             var response = await mediator.Send(command);
             return Results.Ok(response);
+        });
+
+        app.MapGet("/games/developer/{id}", async (int id, int? limit, IMediator mediator) => {
+            var command = new GetGamesQuery(GameFilter.Developer, id, limit);
+            var response = await mediator.Send(command);
+            return response;
         });
 
         app.Run();
