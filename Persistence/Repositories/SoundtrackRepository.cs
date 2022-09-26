@@ -21,9 +21,14 @@ public class SoundtrackRepository : ISoundtrackRepository
         return soundtracks;
     }
 
-    public Task<Soundtrack> GetSoundtrackById(int id)
+    public async Task<Soundtrack> GetSoundtrackById(int id)
     {
-        throw new NotImplementedException();
+        var soundtrack = await _dbContext.Soundtracks
+            .Include(soundtrack => soundtrack.Game)
+            .ThenInclude(game => game.Developer)
+            .FirstOrDefaultAsync(soundtrack => soundtrack.Id == id);
+
+        return soundtrack;
     }
 
     public async Task<IReadOnlyList<Soundtrack>> GetSoundtracks(int limit)
