@@ -42,9 +42,15 @@ public class GameRepository : IGameRepository
         return games;
     }
 
-    public Task<IReadOnlyList<Game>> GetGamesByEngine(int engineId, int limit)
+    public async Task<IReadOnlyList<Game>> GetGamesByEngine(int engineId, int limit)
     {
-        throw new NotImplementedException();
+        var games = await _dbContext.Games
+            .Include(game => game.Developer)
+            .Include(game => game.Engine)
+            .Where(game => game.EngineId == engineId)
+            .Take(limit).ToListAsync();
+
+        return games;
     }
 
     public Task<IReadOnlyList<Game>> GetGamesByGenre(int genreId, int limit)

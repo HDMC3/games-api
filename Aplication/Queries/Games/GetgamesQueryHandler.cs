@@ -36,6 +36,8 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
             games = await _gameRepository.GetGamesByName(name, limit);
         } else if(request.filter == Enums.GameFilter.Developer) {
             games = await _gameRepository.GetGamesByDeveloper((int)request.filterValue, limit);
+        } else if(request.filter == Enums.GameFilter.Engine) {
+            games = await _gameRepository.GetGamesByEngine((int)request.filterValue, limit);
         } else {
             games = await _gameRepository.GetGames(limit);
         }
