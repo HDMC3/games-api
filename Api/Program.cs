@@ -1,4 +1,6 @@
+using System.Net.Mime;
 using System.Reflection;
+using System.Text;
 using Aplication.Queries.Developers;
 using Aplication.Queries.Engines;
 using Aplication.Queries.Games;
@@ -32,6 +34,8 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
+
+        app.UseStatusCodePagesWithReExecute("/error/{0}");
 
         app.MapGet("/games", async (int? id, string? name, int? limit, IMediator mediator) => {
             if (id != null) {
@@ -99,6 +103,13 @@ public class Program
             var command = new GetEnginesQuery(limit);
             var response = await mediator.Send(command);
             return Results.Ok(response);
+        });
+
+        app.MapGet("/error/404", (HttpContext httpContext) => {
+            var _html = "<pre>Resource Not Found</pre>";
+            httpContext.Response.ContentType = MediaTypeNames.Text.Html;
+            httpContext.Response.ContentLength = Encoding.UTF8.GetByteCount(_html);
+            return httpContext.Response.WriteAsync(_html);
         });
 
         app.Run();
