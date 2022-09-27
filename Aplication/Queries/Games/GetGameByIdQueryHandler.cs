@@ -1,3 +1,4 @@
+using Aplication.Exceptions;
 using Aplication.Interfaces.Repositories;
 using Aplication.Queries.Games.DTOs;
 using MediatR;
@@ -30,7 +31,7 @@ public class GetGameByIdQueryHandler : IRequestHandler<GetGameByIdQuery, GameDto
         var game = await _gameRepository.GetGameById(request.id);
         
         if (game == null) {
-            throw new Exception();
+            throw new QueryException($"No se encontro ningun Juego con id={request.id}");
         }
 
         var gameSoundtracks = (await _soundtrackRepository.GetGameSoundtracks(game.Id))

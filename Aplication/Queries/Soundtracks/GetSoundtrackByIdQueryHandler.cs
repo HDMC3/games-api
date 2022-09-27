@@ -1,3 +1,4 @@
+using Aplication.Exceptions;
 using Aplication.Interfaces.Repositories;
 using Aplication.Queries.Soundtracks.DTOs;
 using MediatR;
@@ -16,7 +17,7 @@ public class GetSoundtrackByIdQueryHandler : IRequestHandler<GetSoundtrackByIdQu
     {
         var soundtrack = await _soundtrackRepository.GetSoundtrackById(request.id);
         if (soundtrack == null) {
-            throw new Exception();
+            throw new QueryException($"No se encontro ningun Soundtrack con id={request.id}");
         }
         
         var soudtrackGame = new SoundtrackGameDto(soundtrack.Game.Name, soundtrack.Game.Developer.Name, soundtrack.Id);

@@ -1,3 +1,4 @@
+using Aplication.Exceptions;
 using Aplication.Interfaces.Repositories;
 using Aplication.Queries.Developers.DTOs;
 using MediatR;
@@ -17,7 +18,7 @@ public class GetDeveloperByIdQueryHandler : IRequestHandler<GetDeveloperbyIdQuer
         var developer = await _developerRepository.GetDeveloperById(request.id);
 
         if (developer == null) {
-            throw new Exception();
+            throw new QueryException($"No se encontro ningun desarrollador con id={request.id}");
         }
 
         var developerGames = developer.Games

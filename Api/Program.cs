@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using System.Reflection;
 using System.Text;
+using Api.Middlewares;
 using Aplication.Queries.Developers;
 using Aplication.Queries.Engines;
 using Aplication.Queries.Games;
@@ -36,6 +37,8 @@ public class Program
         app.UseAuthorization();
 
         app.UseStatusCodePagesWithReExecute("/error/{0}");
+
+        app.UseMiddleware<ErrorHandlerMiddleware>();
 
         app.MapGet("/games", async (int? id, string? name, int? limit, IMediator mediator) => {
             if (id != null) {

@@ -1,3 +1,4 @@
+using Aplication.Exceptions;
 using Aplication.Interfaces.Repositories;
 using Aplication.Queries.Engines.DTOs;
 using MediatR;
@@ -15,6 +16,10 @@ public class GetEngineByIdQueryHandler : IRequestHandler<GetEngineByIdQuery, Eng
     public async Task<EngineDto> Handle(GetEngineByIdQuery request, CancellationToken cancellationToken)
     {
         var engine = await _engineRepository.GetEngineById(request.id);
+
+        if (engine == null) {
+            throw new QueryException($"No se encontro ningun Motor con id={request.id}");
+        }
         
         var engineLanguages = engine.Languages != null
             ? engine.Languages.Split("|").ToList()
