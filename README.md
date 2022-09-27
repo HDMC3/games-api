@@ -2,7 +2,7 @@
 
 Web API sencilla para consultar información general sobre algunos videojuegos. Está desarrollada con .Net 6 (utilizando la plantilla minimal), y los datos están almacenados en una base de datos SQLite.
 
-## Tecnologías usadas
+<h2>Tecnologías usadas</h2>
 ---
 ### Frameworks y librerías
 
