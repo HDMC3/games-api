@@ -1,7 +1,7 @@
 using System.Net.Mime;
-using System.Reflection;
 using System.Text;
 using Api.Middlewares;
+using Aplication;
 using Aplication.Queries.Developers;
 using Aplication.Queries.Engines;
 using Aplication.Queries.Games;
@@ -23,7 +23,7 @@ public class Program
 
         builder.Services.AddPersistence(builder.Configuration);
         
-        builder.Services.AddMediatR(typeof(GetGamesQueryHandler).Assembly);
+        builder.Services.AddAplication();
 
         var app = builder.Build();
 
