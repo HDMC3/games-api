@@ -2,8 +2,8 @@
 
 Web API sencilla para consultar información general sobre algunos videojuegos. Está desarrollada con .Net 6 (utilizando la plantilla minimal), y los datos están almacenados en una base de datos SQLite.
 
-<h2>Tecnologías usadas</h2>
----
+# Tecnologías usadas
+
 ### Frameworks y librerías
 
 - [.NET 6](https://docs.microsoft.com/es-mx/dotnet/fundamentals/)
@@ -12,9 +12,7 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 
 - [SQLite](https://www.sqlite.org/index.html)
 
-## Recursos
-
----
+# Recursos
 
 ## **Games**
 #### Endpoints
@@ -123,8 +121,8 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 | url | string |
 
 
-## Getting started
----
+# Getting started
+
 \- Clonar y restaurar los paquetes:
 1. `git clone https://github.com/HDMC3/games-api.git`
 2. `cd games-api`
