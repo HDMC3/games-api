@@ -30,6 +30,7 @@ RUN dotnet publish -c Release -o /app --use-current-runtime --self-contained fal
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
+ARG DB_NAME
 COPY --from=build /app .
-COPY --from=migrations /source/games_api.db .
+COPY --from=migrations /source/${DB_NAME} .
 ENTRYPOINT ["dotnet", "Api.dll"]
