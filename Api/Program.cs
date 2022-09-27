@@ -32,8 +32,6 @@ public class Program
         {
         }
 
-        app.UseHttpsRedirection();
-
         app.UseAuthorization();
 
         app.UseStatusCodePagesWithReExecute("/error/{0}");
