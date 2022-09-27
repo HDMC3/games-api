@@ -23,7 +23,7 @@ public class Program
 
         builder.Services.AddPersistence(builder.Configuration);
         
-        builder.Services.AddMediatR(Assembly.Load("Aplication"));
+        builder.Services.AddMediatR(typeof(GetGamesQueryHandler).Assembly);
 
         var app = builder.Build();
 
