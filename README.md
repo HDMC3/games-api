@@ -13,7 +13,7 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 - [SQLite](https://www.sqlite.org/index.html)
 
 # Recursos
-## **Url base**
+## **Url pública base**
 `https://games-api-r4qr.onrender.com`
 
 ## **Games**
@@ -26,39 +26,39 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 - `/games/engine/{engineId}?limit`
 - `/games/platform/{platformId}?limit`
 - `/games/genre/{genreId}?limit`
-#### **Game** (type)
+#### **Game**
 | Nombre | Tipo |
 |--------|------|
-| id | int |
-| name | string |
-| publisher | string |
-| web | string \| null |
-| developer | GameDeveloper |
-| engine | GameEngine |
-| genres | string[] |
-| soundtracks | GameSoundtrack[] |
-| reviews | GameReview[] |
-| releases | GameRelease[] |
-#### **GameDeveloper**, **GameEngine** (type)
+| id | `int` |
+| name | `string` |
+| publisher | `string` |
+| web | `string` \| `null` |
+| developer | `GameDeveloper` |
+| engine | `GameEngine` |
+| genres | `string[]` |
+| soundtracks | `GameSoundtrack[]` |
+| reviews | `GameReview[]` |
+| releases | `GameRelease[]` |
+#### **GameDeveloper**, **GameEngine**
 | Nombre | Tipo |
 |--------|------|
-| name | string |
-| url | string |
-#### **GameSoundtrack** (type)
+| name | `string` |
+| url | `string` |
+#### **GameSoundtrack**
 | Nombre | Tipo |
 |--------|------|
-| web | string |
-| url | string |
-#### **GameRelease** (type)
+| web | `string` |
+| url | `string` |
+#### **GameRelease**
 | Nombre | Tipo |
 |--------|------|
-| platform | string |
-| date | string |
-#### **GameReview** (type)
+| platform | `string` |
+| date | `string` |
+#### **GameReview**
 | Nombre | Tipo |
 |--------|------|
-| reviewer | string |
-| score | float |
+| reviewer | `string` |
+| score | `float` |
 
 
 ## **Developers**
@@ -66,19 +66,19 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 - `/developers`
 - `/developers?id`
 - `/developers?limit`
-#### **Developer** (type)
+#### **Developer**
 | Nombre | Tipo |
 |--------|------|
-| id | int |
-| name | string |
-| web | string \| null |
-| games | DeveloperGame[] |
-#### **DeveloperGame** (type)
+| id | `int` |
+| name | `string` |
+| web | `string` \| `null` |
+| games | `DeveloperGame[]` |
+#### **DeveloperGame**
 | Nombre | Tipo |
 |--------|------|
-| name | string |
-| publisher | string |
-| url | string |
+| name | `string` |
+| publisher | `string` |
+| url | `string` |
 
 
 ## **Soundtracks**
@@ -86,20 +86,20 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 - `/soundtracks`
 - `/soundtracks?id`
 - `/soundtracks?limit`
-#### **Soundtrack** (type)
+#### **Soundtrack**
 | Nombre | Tipo |
 |--------|------|
-| id | int |
-| name | string |
-| composer | string |
-| web | string \| null |
-| game | SoundtrackGame |
-#### **SoundtrackGame** (type)
+| id | `int` |
+| name | `string` |
+| composer | `string` |
+| web | `string` \| `null` |
+| game | `SoundtrackGame` |
+#### **SoundtrackGame**
 | Nombre | Tipo |
 |--------|------|
-| name | string |
-| developer | string |
-| url | string |
+| name | `string` |
+| developer | `string` |
+| url | `string` |
 
 
 ## **Engines**
@@ -107,20 +107,20 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 - `/engines`
 - `/engines?id`
 - `/engines?limit`
-#### **Engine** (type)
+#### **Engine**
 | Nombre | Tipo |
 |--------|------|
-| id | int |
-| name | string |
-| languages | string[] |
-| web | string \| null |
-| games | DeveloperGame[] |
-#### **EngineGame** (type)
+| id | `int` |
+| name | `string` |
+| languages | `string[]` |
+| web | `string` \| `null` |
+| games | `EngineGame[]` |
+#### **EngineGame**
 | Nombre | Tipo |
 |--------|------|
-| name | string |
-| developer | string |
-| url | string |
+| name | `string` |
+| developer | `string` |
+| url | `string` |
 
 
 # Getting started
