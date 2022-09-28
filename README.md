@@ -13,6 +13,8 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 - [SQLite](https://www.sqlite.org/index.html)
 
 # Recursos
+## **Url base**
+`https://games-api-r4qr.onrender.com`
 
 ## **Games**
 #### Endpoints
