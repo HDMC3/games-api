@@ -1,5 +1,5 @@
 -- TABLA Genres
-INSERT INTO Genres (id, name) VALUES 
+INSERT INTO "Genres" (id, name) VALUES 
 	(1, 'Metroidvania'),
 	(2, 'Plataformas'),
 	(3, 'Aventura'),
@@ -12,14 +12,14 @@ INSERT INTO Genres (id, name) VALUES
 	(10, 'Deportes'),
 	(11, 'Estrategia'),
 	(12, 'RPG'),
-	(13, "Shoot'em up"),
+	(13, 'Shoot''em up'),
 	(14, 'Sigilo'),
 	(15, 'Hack and slash'),
 	(16, 'Estrategia por turnos'),
-	(17, "Beat'em up");
+	(17, 'Beat''em up');
 
 -- TABLA Developers
-INSERT INTO Developers (id, name, web) VALUES
+INSERT INTO "Developers" (id, name, web) VALUES
 	(1, 'Team Cherry', 'https://www.teamcherry.com.au/'),
 	(2, 'Sabotage Studio', 'https://sabotagestudio.com/'),
 	(3, 'StudioMDHR', null),
@@ -30,39 +30,40 @@ INSERT INTO Developers (id, name, web) VALUES
     (8, 'DrinkBox Studios', 'https://www.drinkboxstudios.com/');
 
 -- TABLA Engines
-INSERT INTO Engines (id, name, languages, web) VALUES
+INSERT INTO "Engines" (id, name, languages, web) VALUES
 	(1, 'Unity', 'C#', 'https://unity.com/'),
 	(2, 'MonoGame', 'C#', 'https://www.monogame.net/'),
 	(3, 'Unreal Engine 4', 'C++|Blueprint Visual Scripting', 'https://www.unrealengine.com/en-US'),
 	(10, 'In-House', null, null);
 	
 -- TABLA Platforms
-INSERT INTO Platforms (id, name) VALUES (1, 'Microsoft Windows');
-INSERT INTO Platforms (id, name) VALUES (2, 'macOS');
-INSERT INTO Platforms (id, name) VALUES (3, 'Linux');
-INSERT INTO Platforms (id, name) VALUES (4, 'Nintendo Switch');
-INSERT INTO Platforms (id, name) VALUES (5, 'Play Station 4');
-INSERT INTO Platforms (id, name) VALUES (6, 'Xbox One');
-INSERT INTO Platforms (id, name) VALUES (7, 'Stadia');
-INSERT INTO Platforms (id, name) VALUES (8, 'Play Station 3');
-INSERT INTO Platforms (id, name) VALUES (9, 'Play Station Vita');
-INSERT INTO Platforms (id, name) VALUES (10, 'Wii U');
-INSERT INTO Platforms (id, name) VALUES (11, 'Xbox 360');
+INSERT INTO "Platforms" (id, name) VALUES 
+    (1, 'Microsoft Windows'),
+    (2, 'macOS'),
+    (3, 'Linux'),
+    (4, 'Nintendo Switch'),
+    (5, 'Play Station 4'),
+    (6, 'Xbox One'),
+    (7, 'Stadia'),
+    (8, 'Play Station 3'),
+    (9, 'Play Station Vita'),
+    (10, 'Wii U'),
+    (11, 'Xbox 360');
 
 
 -- TABLA Games 
-INSERT INTO Games (id, name, publisher, web, developer_id, engine_id) VALUES
+INSERT INTO "Games" (id, name, publisher, web, developer_id, engine_id) VALUES
 	(1, 'Hollow Knight', 'Team Cherry', 'https://www.hollowknight.com', 1, 1),
 	(2, 'The Messenger', 'Devolver Digital', 'https://themessengergame.com/', 2, 1),
 	(3, 'Cuphead', 'StudioMDHR', 'https://cupheadgame.com/', 3, 1),
 	(4, 'Celeste', 'Extremely OK Games', 'https://exok.com/games/celeste/', 4, 2),
 	(5, 'A Plague Tale: Innocence', 'Focus Home Interactive', 'https://www.focus-entmt.com/en/games/a-plague-tale-innocence', 5, 10),
-	(6, "Hellblade: Senua's Sacrifice", 'Ninja Theory', null, 6, 3),
+	(6, 'Hellblade: Senua''s Sacrifice', 'Ninja Theory', null, 6, 3),
 	(7, 'Into The Breach', 'Subset Games', 'https://subsetgames.com/itb.html', 7, 10),
     (8, 'Guacamelee!', 'DrinkBox Studios', 'https://www.drinkboxstudios.com/games/guacamelee-super-turbo-championship-edition/', 8, 10);
 	
 -- TABLA Soundtracks
-INSERT INTO Soundtracks (id, name, web, composer, game_id) VALUES
+INSERT INTO "Soundtracks" (id, name, web, composer, game_id) VALUES
 	(1, 'Hollow Knight OST', 'https://open.spotify.com/album/4XgGOMRY7H4hl6OQi5wb2Z', 'Christopher Larkin', 1),
 	(2, 'The Messenger OST: Disc I (The Past)', 'https://open.spotify.com/album/10octs1G93CXaQ17ipuGUn', 'Rainbowdragoneyes', 2),
 	(3, 'The Messenger OST: Disc II (The Future)', 'https://open.spotify.com/album/4BmqRRYgmHbwoJrqU9QrYk', 'Rainbowdragoneyes', 2),
@@ -71,13 +72,13 @@ INSERT INTO Soundtracks (id, name, web, composer, game_id) VALUES
 	(6, 'Celeste OST', 'https://open.spotify.com/album/1ZfETfec0U02KrKNI8w3Gf', 'Lena Raine', 4),
 	(7, 'Celeste B-Sides OST', 'https://open.spotify.com/album/3lRqLudF94UtGUmTM2bjfd', 'Lena Raine', 4),
 	(8, 'A Plague Tale: Innocence OST', 'https://open.spotify.com/album/2wD6ibumlAybToO5Mpy9pK', 'Olivier Derivi�re', 5),
-	(9, "Hellblade: Senua's Sacrifice OST", 'https://open.spotify.com/album/1ihHcMdKtZ3qY5eRXYxcl8', 'David Garc�a D�az', 6),
+	(9, 'Hellblade: Senua''s Sacrifice OST', 'https://open.spotify.com/album/1ihHcMdKtZ3qY5eRXYxcl8', 'David Garc�a D�az', 6),
 	(10, 'Into The Breach Sountrack', 'https://open.spotify.com/album/5HaoWXvyhc7jFlPb0vCVfM', 'Ben Prunty', 7),
     (11, 'Guacamelee! OST', 'https://drinkbox.bandcamp.com/album/guacamelee-original-soundtrack', 'Rom Di Prisco & Peter Chapman', 8);
 	
 
 -- TABLA Realeses
-INSERT INTO Releases (game_id,platform_id, date) VALUES
+INSERT INTO "Releases" (game_id,platform_id, date) VALUES
 	-- Hollow Knight
 	(1, 1, '2017-02-24'),
 	(1, 2, '2017-04-11'),	
@@ -131,75 +132,75 @@ INSERT INTO Releases (game_id,platform_id, date) VALUES
 	
 
 -- TABLA ReviewScores 
-INSERT INTO ReviewScores (reviewer, score, game_id) VALUES
+INSERT INTO "ReviewScores" (reviewer, score, game_id) VALUES
 	-- Hollow Knight
-	('Destructoid', round(10/10, 2), 1),
-	('IGN', round(9.4/10.0, 2), 1),
-	('Nintendo Life', round(9/10.0, 2), 1),
-	('Nintendo World Report', round(10/10, 2), 1),
-	('IGN', round(9.4/10.0, 2), 1),
-	('PC Gamer (US)', round(92/100.0, 2), 1),
-	('PC PowerPlay', round(8/10.0, 2), 1),
-	('VideoGamer.com', round(8/10.0, 2), 1),
+	('Destructoid', round(10::decimal/10, 2), 1),
+	('IGN', round(9.4::decimal/10.0, 2), 1),
+	('Nintendo Life', round(9::decimal/10.0, 2), 1),
+	('Nintendo World Report', round(10::decimal/10, 2), 1),
+	('IGN', round(9.4::decimal/10.0, 2), 1),
+	('PC Gamer (US)', round(92::decimal/100.0, 2), 1),
+	('PC PowerPlay', round(8::decimal/10.0, 2), 1),
+	('VideoGamer.com', round(8::decimal/10.0, 2), 1),
 	-- The Messenger
-	('Destructoid', round(10/10.0, 2), 2),
-	('GameSpot', round(8/10.0, 2), 2),
-	('Hardcore Gamer', round(4.5/5.0, 2), 2),
-	('IGN', round(8/10.0, 2), 2),
-	('Jeuxvideo.com', round(18/20.0, 2), 2),
-	('Nintendo Life', round(9/10.0, 2), 2),
-	('Nintendo World Report', round(10/10.0, 2), 2),
-	('USgamer', round(5/5.0, 2), 2),
-	('VentureBeat', round(90/100.0, 2), 2),
+	('Destructoid', round(10::decimal/10.0, 2), 2),
+	('GameSpot', round(8::decimal/10.0, 2), 2),
+	('Hardcore Gamer', round(4.5::decimal/5.0, 2), 2),
+	('IGN', round(8::decimal/10.0, 2), 2),
+	('Jeuxvideo.com', round(18::decimal/20.0, 2), 2),
+	('Nintendo Life', round(9::decimal/10.0, 2), 2),
+	('Nintendo World Report', round(10::decimal/10.0, 2), 2),
+	('USgamer', round(5::decimal/5.0, 2), 2),
+	('VentureBeat', round(90::decimal/100.0, 2), 2),
 	-- Cuphead
-	('3DJuegos', round(9/10.0, 2), 3),
-	('Atomix', round(90/100.0, 2), 3),
-	('Destructoid', round(9.5/10.0, 2), 3),
-	('Electronic Gaming Monthly', round(9.5/10.0, 2), 3),
-	('GameSpot', round(8/10.0, 2), 3),
-	('Hobby Consolas', round(90/100.0, 2), 3),
-	('Level Up', round(9/10.0, 2), 3),
-	('MeriStation', round(9/10.0, 2), 3),
-	('Polygon', round(8.5/10.0, 2), 3),
-	('Vandal', round(9/10.0, 2), 3),	
-	('IGN.es', round(9/10.0, 2), 3),
-	('Zonared', round(9/10.0, 2), 3),
+	('3DJuegos', round(9::decimal/10.0, 2), 3),
+	('Atomix', round(90::decimal/100.0, 2), 3),
+	('Destructoid', round(9.5::decimal/10.0, 2), 3),
+	('Electronic Gaming Monthly', round(9.5::decimal/10.0, 2), 3),
+	('GameSpot', round(8::decimal/10.0, 2), 3),
+	('Hobby Consolas', round(90::decimal/100.0, 2), 3),
+	('Level Up', round(9::decimal/10.0, 2), 3),
+	('MeriStation', round(9::decimal/10.0, 2), 3),
+	('Polygon', round(8.5::decimal/10.0, 2), 3),
+	('Vandal', round(9::decimal/10.0, 2), 3),	
+	('IGN.es', round(9::decimal/10.0, 2), 3),
+	('Zonared', round(9::decimal/10.0, 2), 3),
 	-- Celeste
-	('Destructoid', round(10/10.0, 2), 4),
-	('Game Informer', round(9/10.0, 2), 4),
-	('GameSpot', round(9/10.0, 2), 4),
-	('IGN', round(10/10.0, 2), 4),
-	('Nintendo World Report', round(10/10.0, 2), 4),
-	('PC Gamer EEUU', round(80/100.0, 2), 4),
-	('Polygon', round(8/10.0, 2), 4),
-	('VideoGamer.com', round(9/10.0, 2), 4),
+	('Destructoid', round(10::decimal/10.0, 2), 4),
+	('Game Informer', round(9::decimal/10.0, 2), 4),
+	('GameSpot', round(9::decimal/10.0, 2), 4),
+	('IGN', round(10::decimal/10.0, 2), 4),
+	('Nintendo World Report', round(10::decimal/10.0, 2), 4),
+	('PC Gamer EEUU', round(80::decimal/100.0, 2), 4),
+	('Polygon', round(8::decimal/10.0, 2), 4),
+	('VideoGamer.com', round(9::decimal/10.0, 2), 4),
 	-- A Plague Tale: Innocence
-	('Hobby Consolas', round(84/100.0, 2), 5),
-	('IGN', round(7/10.0, 2), 5),
-	('Level Up', round(9/10.0, 2), 5),
-	('Destructoid', round(8/10.0, 2), 5),
-	('Game Spot', round(8/10.0, 2), 5),
-	('Meristation', round(8.5/10.0, 2), 5),
+	('Hobby Consolas', round(84::decimal/100.0, 2), 5),
+	('IGN', round(7::decimal/10.0, 2), 5),
+	('Level Up', round(9::decimal/10.0, 2), 5),
+	('Destructoid', round(8::decimal/10.0, 2), 5),
+	('Game Spot', round(8::decimal/10.0, 2), 5),
+	('Meristation', round(8.5::decimal/10.0, 2), 5),
 	-- Hellblade Senua's Sacrifice
-	('3DJuegos', round(8.5/10.0, 2), 6),
-	('Atomix', round(90/100.0, 2), 6),
-	('Destructoid', round(7.5/10.0, 2), 6),
-	('Electronic Gaming Monthly', round(8.5/10.0, 2), 6),
-	('GameSpot', round(8/10.0, 2), 6),
-	('Hobby Consolas', round(91/100.0, 2), 6),
-	('IGN', round(9/10.0, 2), 6),
-	('Level Up', round(8.4/10.0, 2), 6),
-	('Meristation', round(9/10.0, 2), 6),
-	('Polygon', round(8.5/10.0, 2), 6),
-	('Vandal', round(7.8/10.0, 2), 6),
-	('Game Informer', round(8/10.0, 2), 6),
+	('3DJuegos', round(8.5::decimal/10.0, 2), 6),
+	('Atomix', round(90::decimal/100.0, 2), 6),
+	('Destructoid', round(7.5::decimal/10.0, 2), 6),
+	('Electronic Gaming Monthly', round(8.5::decimal/10.0, 2), 6),
+	('GameSpot', round(8::decimal/10.0, 2), 6),
+	('Hobby Consolas', round(91::decimal/100.0, 2), 6),
+	('IGN', round(9::decimal/10.0, 2), 6),
+	('Level Up', round(8.4::decimal/10.0, 2), 6),
+	('Meristation', round(9::decimal/10.0, 2), 6),
+	('Polygon', round(8.5::decimal/10.0, 2), 6),
+	('Vandal', round(7.8::decimal/10.0, 2), 6),
+	('Game Informer', round(8::decimal/10.0, 2), 6),
 	-- Into The Breach
-	('Edge', round(9/10.0, 2), 7),
-	('Game Informer', round(9.25/10.0, 2), 7),
-	('GameSpot', round(10/10.0, 2), 7),
-	('IGN', round(9/10.0, 2), 7),
+	('Edge', round(9::decimal/10.0, 2), 7),
+	('Game Informer', round(9.25::decimal/10.0, 2), 7),
+	('GameSpot', round(10::decimal/10.0, 2), 7),
+	('IGN', round(9::decimal/10.0, 2), 7),
     -- Guacamelee!
-    ('IGN', round(9/10.0, 2), 8);
+    ('IGN', round(9::decimal/10.0, 2), 8);
 
 
 -- TABLA GameGenres

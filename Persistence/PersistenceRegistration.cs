@@ -8,7 +8,7 @@ namespace Persistence;
 
 public static class PersistenceRegistration {
     public static void AddPersistence(this IServiceCollection services, IConfiguration configuration) {
-        services.AddDbContext<DatabaseContext>(options => options.UseSqlite(configuration["CONNECTION_STRING"]));
+        services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(configuration["PG_CON_STR"]));
         services.AddTransient<IGameRepository, GameRepository>();
         services.AddTransient<IGenreRepository, GenreRepository>();
         services.AddTransient<IReleaseRepository, ReleaseRepository>();
