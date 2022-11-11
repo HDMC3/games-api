@@ -1,6 +1,6 @@
 # Games Api
 
-Web API sencilla para consultar información general sobre algunos videojuegos. Está desarrollada con .Net 6 (utilizando la plantilla minimal), y los datos están almacenados en una base de datos SQLite.
+Web API sencilla para consultar información general sobre algunos videojuegos. Está desarrollada con .Net 6 (utilizando la plantilla minimal), y los datos están almacenados en una base de datos Postgresql.
 
 # Tecnologías usadas
 
@@ -10,7 +10,7 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 
 ### Bases de datos
 
-- [SQLite](https://www.sqlite.org/index.html)
+- [Postgresql](https://www.postgresql.org/)
 
 # Recursos
 ## **Url pública base**
@@ -136,11 +136,11 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 
 \- Agregar y aplicar una migración para la creación de la base de datos.
 
-> Para este paso se debe establecer una variable de entorno con el nombre "CONNECTION_STRING", y como valor una [cadena de conexion](https://learn.microsoft.com/en-us/dotnet/standard/data/sqlite/connection-strings) válida para SQLite. 
+> Para este paso se debe establecer una variable de entorno con el nombre "PG_CON_STR", y como valor una cadena de conexion válida para Postgresql. 
 
 5. `dotnet ef migrations add Initial -p Persistence/ -s Api/`
 6. `dotnet ef database update -p Persistence/ -s Api/`
 
-\- Ejecutar el script "db_data.sql" sobre la base de datos creada ([DBeaver](https://dbeaver.io/) es una buena opción), y ejecuta el proyecto:
+\- Ejecutar el script "db_data.sql" sobre la base de datos creada ([pgAdmin](https://www.pgadmin.org/download/) o [DBeaver](https://dbeaver.io/) son buenas opciones), y ejecuta el proyecto:
 
 7. `dotnet run`
