@@ -1,6 +1,8 @@
 using Aplication.Interfaces.Repositories;
+using Aplication.Wrappers;
 using Domain;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Extensions;
 
 namespace Persistence.Repositories;
 
@@ -8,7 +10,8 @@ public class GameRepository : IGameRepository
 {
     private readonly DatabaseContext _dbContext;
 
-    public GameRepository(DatabaseContext dbContext) {
+    public GameRepository(DatabaseContext dbContext)
+    {
         _dbContext = dbContext;
     }
 
@@ -21,39 +24,39 @@ public class GameRepository : IGameRepository
         return game;
     }
 
-    public async Task<IReadOnlyList<Game>> GetGames(int limit)
+    public async Task<DataCollection<Game>> GetGames(int page, int take)
     {
         var games = await _dbContext.Games
             .Include(g => g.Developer)
             .Include(g => g.Engine)
-            .Take(limit).ToListAsync();
+            .GetPagedAsync(page, take);
 
         return games;
     }
 
-    public async Task<IReadOnlyList<Game>> GetGamesByDeveloper(int developerId, int limit)
+    public async Task<DataCollection<Game>> GetGamesByDeveloper(int developerId, int page, int take)
     {
         var games = await _dbContext.Games
             .Include(game => game.Developer)
             .Include(game => game.Engine)
             .Where(game => game.DeveloperId == developerId)
-            .Take(limit).ToListAsync();
+            .GetPagedAsync(page, take);
 
         return games;
     }
 
-    public async Task<IReadOnlyList<Game>> GetGamesByEngine(int engineId, int limit)
+    public async Task<DataCollection<Game>> GetGamesByEngine(int engineId, int page, int take)
     {
         var games = await _dbContext.Games
             .Include(game => game.Developer)
             .Include(game => game.Engine)
             .Where(game => game.EngineId == engineId)
-            .Take(limit).ToListAsync();
+            .GetPagedAsync(page, take);
 
         return games;
     }
 
-    public async Task<IReadOnlyList<Game>> GetGamesByGenre(int genreId, int limit)
+    public async Task<DataCollection<Game>> GetGamesByGenre(int genreId, int page, int take)
     {
         var games = await _dbContext.GameGenres
             .Include(gameGenre => gameGenre.Game)
@@ -62,22 +65,22 @@ public class GameRepository : IGameRepository
             .ThenInclude(game => game.Engine)
             .Where(gameGenre => gameGenre.GenreId == genreId)
             .Select(gameGenre => gameGenre.Game)
-            .Take(limit).ToListAsync();
+            .GetPagedAsync(page, take);
 
         return games;
     }
 
-    public async Task<IReadOnlyList<Game>> GetGamesByName(string name, int limit)
+    public async Task<DataCollection<Game>> GetGamesByName(string name, int page, int take)
     {
         var games = await _dbContext.Games
             .Where(game => game.Name.ToLower().Contains(name.Trim().ToLower()))
             .Include(g => g.Developer)
             .Include(g => g.Engine)
-            .Take(limit).ToListAsync();
+            .GetPagedAsync(page, take);
         return games;
     }
 
-    public async Task<IReadOnlyList<Game>> GetGamesByPlatform(int platformId, int limit)
+    public async Task<DataCollection<Game>> GetGamesByPlatform(int platformId, int page, int take)
     {
         var games = await _dbContext.Releases
             .Include(release => release.Game)
@@ -86,7 +89,7 @@ public class GameRepository : IGameRepository
             .ThenInclude(game => game.Engine)
             .Where(release => release.PlatformId == platformId)
             .Select(release => release.Game)
-            .Take(limit).ToListAsync();
+            .GetPagedAsync(page, take);
 
         return games;
     }

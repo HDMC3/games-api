@@ -1,14 +1,16 @@
+using Aplication.Wrappers;
 using Domain;
 
 namespace Aplication.Interfaces.Repositories;
 
-public interface IGameRepository {
+public interface IGameRepository
+{
     Task<int> GetTotalGames();
     Task<Game> GetGameById(int? id);
-    Task<IReadOnlyList<Game>> GetGames(int limit);
-    Task<IReadOnlyList<Game>> GetGamesByName(string name, int limit);
-    Task<IReadOnlyList<Game>> GetGamesByGenre(int genreId, int limit);
-    Task<IReadOnlyList<Game>> GetGamesByEngine(int engineId, int limit);
-    Task<IReadOnlyList<Game>> GetGamesByPlatform(int platformId, int limit);
-    Task<IReadOnlyList<Game>> GetGamesByDeveloper(int developerId, int limit);
+    Task<DataCollection<Game>> GetGames(int page, int take);
+    Task<DataCollection<Game>> GetGamesByName(string name, int page, int take);
+    Task<DataCollection<Game>> GetGamesByGenre(int genreId, int page, int take);
+    Task<DataCollection<Game>> GetGamesByEngine(int engineId, int page, int take);
+    Task<DataCollection<Game>> GetGamesByPlatform(int platformId, int page, int take);
+    Task<DataCollection<Game>> GetGamesByDeveloper(int developerId, int page, int take);
 }

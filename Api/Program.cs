@@ -55,7 +55,7 @@ public class Program
 
         app.UseMiddleware<ErrorHandlerMiddleware>();
 
-        app.MapGet("/games", async (int? id, string? name, int? limit, IMediator mediator) =>
+        app.MapGet("/games", async (IMediator mediator, int? id, string? name, int page = 1, int take = 10) =>
         {
             if (id != null)
             {
@@ -63,39 +63,39 @@ public class Program
                 return Results.Ok(game);
             }
 
-            var command = new GetGamesQuery(GameFilter.None, true, limit);
+            var command = new GetGamesQuery(GameFilter.None, true, page, take);
             if (name != null)
             {
-                command = new GetGamesQuery(GameFilter.Name, name, limit);
+                command = new GetGamesQuery(GameFilter.Name, name, page, take);
             }
             var response = await mediator.Send(command);
             return Results.Ok(response);
         });
 
-        app.MapGet("/games/developer/{id}", async (int id, int? limit, IMediator mediator) =>
+        app.MapGet("/games/developer/{id}", async (IMediator mediator, int id, int page = 1, int take = 10) =>
         {
-            var command = new GetGamesQuery(GameFilter.Developer, id, limit);
+            var command = new GetGamesQuery(GameFilter.Developer, id, page, take);
             var response = await mediator.Send(command);
             return response;
         });
 
-        app.MapGet("/games/engine/{id}", async (int id, int? limit, IMediator mediator) =>
+        app.MapGet("/games/engine/{id}", async (IMediator mediator, int id, int page = 1, int take = 10) =>
         {
-            var command = new GetGamesQuery(GameFilter.Engine, id, limit);
+            var command = new GetGamesQuery(GameFilter.Engine, id, page, take);
             var response = await mediator.Send(command);
             return response;
         });
 
-        app.MapGet("/games/genre/{id}", async (int id, int? limit, IMediator mediator) =>
+        app.MapGet("/games/genre/{id}", async (IMediator mediator, int id, int page = 1, int take = 10) =>
         {
-            var command = new GetGamesQuery(GameFilter.Genre, id, limit);
+            var command = new GetGamesQuery(GameFilter.Genre, id, page, take);
             var response = await mediator.Send(command);
             return response;
         });
 
-        app.MapGet("/games/platform/{id}", async (int id, int? limit, IMediator mediator) =>
+        app.MapGet("/games/platform/{id}", async (IMediator mediator, int id, int page = 1, int take = 10) =>
         {
-            var command = new GetGamesQuery(GameFilter.Platform, id, limit);
+            var command = new GetGamesQuery(GameFilter.Platform, id, page, take);
             var response = await mediator.Send(command);
             return response;
         });

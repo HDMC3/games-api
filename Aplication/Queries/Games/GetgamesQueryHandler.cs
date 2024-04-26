@@ -1,24 +1,27 @@
 using Aplication.Interfaces.Repositories;
 using Aplication.Queries.Games.DTOs;
+using Aplication.Wrappers;
 using Domain;
 using MediatR;
 
 namespace Aplication.Queries.Games;
 
-public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>> {
+public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, DataCollection<GameDto>>
+{
     private readonly IGameRepository _gameRepository;
     private readonly ISoundtrackRepository _soundtrackRepository;
     private readonly IReviewScoreRepository _reviewScoreRepository;
     private readonly IReleaseRepository _releaseRepository;
     private readonly IGenreRepository _genreRepository;
-    
+
     public GetGamesQueryHandler(
         IGameRepository gameRepository,
         ISoundtrackRepository soundtrackRepository,
         IReviewScoreRepository reviewScoreRepository,
         IReleaseRepository releaseRepository,
         IGenreRepository genreRepository
-    ) {
+    )
+    {
         _gameRepository = gameRepository;
         _soundtrackRepository = soundtrackRepository;
         _reviewScoreRepository = reviewScoreRepository;
@@ -26,28 +29,46 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
         _genreRepository = genreRepository;
     }
 
-    public async Task<List<GameDto>> Handle(GetGamesQuery request, CancellationToken cancellationToken)
+    public async Task<DataCollection<GameDto>> Handle(GetGamesQuery request, CancellationToken cancellationToken)
     {
-        int limit = request.limit != null && request.limit > 0 ? (int)request.limit : 5;
-        IReadOnlyList<Game> games = new List<Game>();
+        DataCollection<Game> games = new DataCollection<Game>();
 
-        if (request.filter == Enums.GameFilter.Name) {
+        if (request.filter == Enums.GameFilter.Name)
+        {
             var name = (string)request.filterValue;
-            games = await _gameRepository.GetGamesByName(name, limit);
-        } else if(request.filter == Enums.GameFilter.Developer) {
-            games = await _gameRepository.GetGamesByDeveloper((int)request.filterValue, limit);
-        } else if(request.filter == Enums.GameFilter.Engine) {
-            games = await _gameRepository.GetGamesByEngine((int)request.filterValue, limit);
-        } else if(request.filter == Enums.GameFilter.Genre) {
-            games = await _gameRepository.GetGamesByGenre((int)request.filterValue, limit);
-        } else if(request.filter == Enums.GameFilter.Platform) {
-            games = await _gameRepository.GetGamesByPlatform((int)request.filterValue, limit);
-        } else {
-            games = await _gameRepository.GetGames(limit);
+            games = await _gameRepository.GetGamesByName(name, request.page, request.take);
         }
-        var response = new List<GameDto>();
-        
-        foreach (var game in games)
+        else if (request.filter == Enums.GameFilter.Developer)
+        {
+            games = await _gameRepository.GetGamesByDeveloper((int)request.filterValue, request.page, request.take);
+        }
+        else if (request.filter == Enums.GameFilter.Engine)
+        {
+            games = await _gameRepository.GetGamesByEngine((int)request.filterValue, request.page, request.take);
+        }
+        else if (request.filter == Enums.GameFilter.Genre)
+        {
+            games = await _gameRepository.GetGamesByGenre((int)request.filterValue, request.page, request.take);
+        }
+        else if (request.filter == Enums.GameFilter.Platform)
+        {
+            games = await _gameRepository.GetGamesByPlatform((int)request.filterValue, request.page, request.take);
+        }
+        else
+        {
+            games = await _gameRepository.GetGames(request.page, request.take);
+        }
+
+        var response = new DataCollection<GameDto>
+        {
+            Page = games.Page,
+            Pages = games.Pages,
+            Total = games.Total
+        };
+
+        var gamesDto = new List<GameDto>();
+
+        foreach (var game in games.Items)
         {
             var soundtracks = await _soundtrackRepository.GetGameSoundtracks(game.Id);
             var gameSoundtracks = soundtracks
@@ -67,7 +88,8 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
             var genres = await _genreRepository.GetGameGenres(game.Id);
             var gameGenres = genres.Select(gameGenre => gameGenre.Genre.Name).ToList();
 
-            response.Add(new GameDto{
+            gamesDto.Add(new GameDto
+            {
                 id = game.Id,
                 name = game.Name,
                 developer = new GameDeveloperDto(game.DeveloperId, game.Developer.Name),
@@ -80,6 +102,9 @@ public class GetGamesQueryHandler : IRequestHandler<GetGamesQuery, List<GameDto>
                 soundtracks = gameSoundtracks
             });
         }
+
+        response.Items = gamesDto;
+
         return response;
     }
 }
