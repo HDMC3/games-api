@@ -8,6 +8,7 @@ using Aplication.Queries.Games;
 using Aplication.Queries.Games.Enums;
 using Aplication.Queries.Soundtracks;
 using MediatR;
+using Microsoft.OpenApi.Models;
 using Persistence;
 
 namespace Api;
@@ -22,8 +23,17 @@ public class Program
         builder.Services.AddAuthorization();
 
         builder.Services.AddPersistence(builder.Configuration);
-        
+
         builder.Services.AddAplication();
+
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "Schedule App API"
+            });
+        });
 
         var app = builder.Build();
 
@@ -32,52 +42,68 @@ public class Program
         {
         }
 
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            options.RoutePrefix = string.Empty;
+        });
+
         app.UseAuthorization();
 
         app.UseStatusCodePagesWithReExecute("/error/{0}");
 
         app.UseMiddleware<ErrorHandlerMiddleware>();
 
-        app.MapGet("/games", async (int? id, string? name, int? limit, IMediator mediator) => {
-            if (id != null) {
-                var game = await mediator.Send(new GetGameByIdQuery{id = id});
+        app.MapGet("/games", async (int? id, string? name, int? limit, IMediator mediator) =>
+        {
+            if (id != null)
+            {
+                var game = await mediator.Send(new GetGameByIdQuery { id = id });
                 return Results.Ok(game);
             }
 
             var command = new GetGamesQuery(GameFilter.None, true, limit);
-            if (name != null) {
+            if (name != null)
+            {
                 command = new GetGamesQuery(GameFilter.Name, name, limit);
             }
             var response = await mediator.Send(command);
             return Results.Ok(response);
         });
 
-        app.MapGet("/games/developer/{id}", async (int id, int? limit, IMediator mediator) => {
+        app.MapGet("/games/developer/{id}", async (int id, int? limit, IMediator mediator) =>
+        {
             var command = new GetGamesQuery(GameFilter.Developer, id, limit);
             var response = await mediator.Send(command);
             return response;
         });
 
-        app.MapGet("/games/engine/{id}", async (int id, int? limit, IMediator mediator) => {
+        app.MapGet("/games/engine/{id}", async (int id, int? limit, IMediator mediator) =>
+        {
             var command = new GetGamesQuery(GameFilter.Engine, id, limit);
             var response = await mediator.Send(command);
             return response;
         });
 
-        app.MapGet("/games/genre/{id}", async (int id, int? limit, IMediator mediator) => {
+        app.MapGet("/games/genre/{id}", async (int id, int? limit, IMediator mediator) =>
+        {
             var command = new GetGamesQuery(GameFilter.Genre, id, limit);
             var response = await mediator.Send(command);
             return response;
         });
 
-        app.MapGet("/games/platform/{id}", async (int id, int? limit, IMediator mediator) => {
+        app.MapGet("/games/platform/{id}", async (int id, int? limit, IMediator mediator) =>
+        {
             var command = new GetGamesQuery(GameFilter.Platform, id, limit);
             var response = await mediator.Send(command);
             return response;
         });
 
-        app.MapGet("/soundtracks", async (int? id, int? limit, IMediator mediator) => {
-            if (id != null) {
+        app.MapGet("/soundtracks", async (int? id, int? limit, IMediator mediator) =>
+        {
+            if (id != null)
+            {
                 var soundtrack = await mediator.Send(new GetSoundtrackByIdQuery((int)id));
                 return Results.Ok(soundtrack);
             }
@@ -86,8 +112,10 @@ public class Program
             return Results.Ok(response);
         });
 
-        app.MapGet("/developers", async (int? id, int? limit, IMediator mediator) => {
-            if (id != null) {
+        app.MapGet("/developers", async (int? id, int? limit, IMediator mediator) =>
+        {
+            if (id != null)
+            {
                 var developer = await mediator.Send(new GetDeveloperbyIdQuery((int)id));
                 return Results.Ok(developer);
             }
@@ -96,8 +124,10 @@ public class Program
             return Results.Ok(response);
         });
 
-        app.MapGet("/engines", async (int? id, int? limit, IMediator mediator) => {
-            if (id != null) {
+        app.MapGet("/engines", async (int? id, int? limit, IMediator mediator) =>
+        {
+            if (id != null)
+            {
                 var engine = await mediator.Send(new GetEngineByIdQuery((int)id));
                 return Results.Ok(engine);
             }
@@ -106,7 +136,8 @@ public class Program
             return Results.Ok(response);
         });
 
-        app.MapGet("/error/404", (HttpContext httpContext) => {
+        app.MapGet("/error/404", (HttpContext httpContext) =>
+        {
             var _html = "<pre>Resource Not Found</pre>";
             httpContext.Response.ContentType = MediaTypeNames.Text.Html;
             httpContext.Response.ContentLength = Encoding.UTF8.GetByteCount(_html);

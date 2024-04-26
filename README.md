@@ -6,7 +6,7 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 
 ### Frameworks y librerías
 
-- [.NET 6](https://docs.microsoft.com/es-mx/dotnet/fundamentals/)
+- [.NET 8](https://docs.microsoft.com/es-mx/dotnet/fundamentals/)
 
 ### Bases de datos
 

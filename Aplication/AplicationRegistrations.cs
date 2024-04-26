@@ -4,8 +4,10 @@ using System.Reflection;
 
 namespace Aplication;
 
-public static class AplicationRegistration {
-    public static void AddAplication(this IServiceCollection services) {
-        services.AddMediatR(Assembly.GetExecutingAssembly());
+public static class AplicationRegistration
+{
+    public static void AddAplication(this IServiceCollection services)
+    {
+        services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
     }
 }
