@@ -31,7 +31,7 @@ public class Program
         {
             options.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Schedule App API"
+                Title = "Games API"
             });
         });
 
