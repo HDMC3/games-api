@@ -1,12 +1,17 @@
 using Aplication.Queries.Engines.DTOs;
+using Aplication.Wrappers;
 using MediatR;
 
 namespace Aplication.Queries.Engines;
 
-public class GetEnginesQuery : IRequest<List<EngineDto>> {
-    public int? limit;
+public class GetEnginesQuery : IRequest<DataCollection<EngineDto>>
+{
+    public int page;
+    public int take;
 
-    public GetEnginesQuery(int? limit) {
-        this.limit = limit;
+    public GetEnginesQuery(int page, int take)
+    {
+        this.page = page;
+        this.take = take;
     }
 }

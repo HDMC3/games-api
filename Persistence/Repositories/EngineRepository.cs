@@ -1,6 +1,8 @@
 using Aplication.Interfaces.Repositories;
+using Aplication.Wrappers;
 using Domain;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Extensions;
 
 namespace Persistence.Repositories;
 
@@ -8,7 +10,8 @@ public class EngineRepository : IEngineRepository
 {
     private readonly DatabaseContext _dbContext;
 
-    public EngineRepository(DatabaseContext dbContext) {
+    public EngineRepository(DatabaseContext dbContext)
+    {
         _dbContext = dbContext;
     }
 
@@ -22,12 +25,12 @@ public class EngineRepository : IEngineRepository
         return engine;
     }
 
-    public async Task<IReadOnlyList<Engine>> GetEngines(int limit)
+    public async Task<DataCollection<Engine>> GetEngines(int page, int take)
     {
         var engines = await _dbContext.Engines
             .Include(engine => engine.Games)
             .ThenInclude(game => game.Developer)
-            .Take(limit).ToListAsync();
+            .GetPagedAsync(page, take);
 
         return engines;
     }

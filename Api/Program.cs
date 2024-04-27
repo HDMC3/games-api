@@ -124,14 +124,14 @@ public class Program
             return Results.Ok(response);
         });
 
-        app.MapGet("/engines", async (int? id, int? limit, IMediator mediator) =>
+        app.MapGet("/engines", async (IMediator mediator, int? id, int page = 1, int take = 10) =>
         {
             if (id != null)
             {
                 var engine = await mediator.Send(new GetEngineByIdQuery((int)id));
                 return Results.Ok(engine);
             }
-            var command = new GetEnginesQuery(limit);
+            var command = new GetEnginesQuery(page, take);
             var response = await mediator.Send(command);
             return Results.Ok(response);
         });

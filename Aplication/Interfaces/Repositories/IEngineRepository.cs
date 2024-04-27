@@ -1,8 +1,10 @@
+using Aplication.Wrappers;
 using Domain;
 
 namespace Aplication.Interfaces.Repositories;
 
-public interface IEngineRepository {
+public interface IEngineRepository
+{
     Task<Engine> GetEngineById(int id);
-    Task<IReadOnlyList<Engine>> GetEngines(int limit);
+    Task<DataCollection<Engine>> GetEngines(int page, int take);
 }
