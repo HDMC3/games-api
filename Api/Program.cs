@@ -112,14 +112,14 @@ public class Program
             return Results.Ok(response);
         });
 
-        app.MapGet("/developers", async (int? id, int? limit, IMediator mediator) =>
+        app.MapGet("/developers", async (IMediator mediator, int? id, int page = 1, int take = 10) =>
         {
             if (id != null)
             {
                 var developer = await mediator.Send(new GetDeveloperbyIdQuery((int)id));
                 return Results.Ok(developer);
             }
-            var command = new GetDevelopersQuery(limit);
+            var command = new GetDevelopersQuery(page, take);
             var response = await mediator.Send(command);
             return Results.Ok(response);
         });

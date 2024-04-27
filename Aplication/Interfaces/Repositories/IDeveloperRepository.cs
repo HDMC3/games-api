@@ -1,8 +1,10 @@
+using Aplication.Wrappers;
 using Domain;
 
 namespace Aplication.Interfaces.Repositories;
 
-public interface IDeveloperRepository {
+public interface IDeveloperRepository
+{
     Task<Developer> GetDeveloperById(int id);
-    Task<IReadOnlyList<Developer>> GetDevelopers(int limit);
+    Task<DataCollection<Developer>> GetDevelopers(int page, int take);
 }
