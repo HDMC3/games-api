@@ -16,17 +16,44 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 ## **Url pública base**
 `https://games-api-r4qr.onrender.com`
 
+## **Listas de recursos**
+### **DataCollection\<T\>**
+| Nombre | Tipo |
+|--------|------|
+| items | `T[]` |
+| hasItems | `boolean` |
+| total | `number` |
+| page | `number` |
+| pages | `number` |
+
 ## **Games**
-#### Endpoints
-- `/games`
+### Endpoints
 - `/games?id`
-- `/games?limit`
-- `/games?name`
-- `/games/developer/{developerId}?limit`
-- `/games/engine/{engineId}?limit`
-- `/games/platform/{platformId}?limit`
-- `/games/genre/{genreId}?limit`
-#### **Game**
+
+    **Tipo de respuesta:** `Game` <br><br>
+
+- `/games?page&take`
+- `/games?name&page&take`
+- `/games/developer/{developerId}?page&take`
+- `/games/engine/{engineId}?page&take`
+- `/games/platform/{platformId}?page&take`
+- `/games/genre/{genreId}?page&take`
+
+    **Tipo de respuesta:** `DataCollection<Game>`
+
+#### Parametros de consulta
+| Nombre | Tipo |
+|--------|------|
+| id | `int` |
+| page | `int` |
+| take | `int` |
+| name | `string` |
+| developerId | `int` |
+| engineId | `int` |
+| platformId | `int` |
+| genreId | `int` |
+
+### **Game**
 | Nombre | Tipo |
 |--------|------|
 | id | `int` |
@@ -39,22 +66,22 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 | soundtracks | `GameSoundtrack[]` |
 | reviews | `GameReview[]` |
 | releases | `GameRelease[]` |
-#### **GameDeveloper**, **GameEngine**
+### **GameDeveloper**, **GameEngine**
 | Nombre | Tipo |
 |--------|------|
 | name | `string` |
 | url | `string` |
-#### **GameSoundtrack**
+### **GameSoundtrack**
 | Nombre | Tipo |
 |--------|------|
 | web | `string` |
 | url | `string` |
-#### **GameRelease**
+### **GameRelease**
 | Nombre | Tipo |
 |--------|------|
 | platform | `string` |
 | date | `string` |
-#### **GameReview**
+### **GameReview**
 | Nombre | Tipo |
 |--------|------|
 | reviewer | `string` |
@@ -62,18 +89,30 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 
 
 ## **Developers**
-#### Endpoints
-- `/developers`
+### Endpoints
 - `/developers?id`
-- `/developers?limit`
-#### **Developer**
+
+    **Tipo de respuesta:** `Developer` <br><br>
+
+- `/developers?page&take`
+
+    **Tipo de respuesta:** `DataCollection<Developer>`
+
+#### Parametros de consulta
+| Nombre | Tipo |
+|--------|------|
+| id | `int` |
+| page | `int` |
+| take | `int` |
+
+### **Developer**
 | Nombre | Tipo |
 |--------|------|
 | id | `int` |
 | name | `string` |
 | web | `string` \| `null` |
 | games | `DeveloperGame[]` |
-#### **DeveloperGame**
+### **DeveloperGame**
 | Nombre | Tipo |
 |--------|------|
 | name | `string` |
@@ -82,11 +121,23 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 
 
 ## **Soundtracks**
-#### Endpoints
-- `/soundtracks`
+### Endpoints
 - `/soundtracks?id`
-- `/soundtracks?limit`
-#### **Soundtrack**
+
+    **Tipo de respuesta:** `Soundtrack` <br><br>
+
+- `/soundtracks?page&take`
+
+    **Tipo de respuesta:** `DataCollection<Soundtrack>`
+
+#### Parametros de consulta
+| Nombre | Tipo |
+|--------|------|
+| id | `int` |
+| page | `int` |
+| take | `int` |
+
+### **Soundtrack**
 | Nombre | Tipo |
 |--------|------|
 | id | `int` |
@@ -94,7 +145,7 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 | composer | `string` |
 | web | `string` \| `null` |
 | game | `SoundtrackGame` |
-#### **SoundtrackGame**
+### **SoundtrackGame**
 | Nombre | Tipo |
 |--------|------|
 | name | `string` |
@@ -103,11 +154,23 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 
 
 ## **Engines**
-#### Endpoints
-- `/engines`
+### Endpoints
 - `/engines?id`
-- `/engines?limit`
-#### **Engine**
+
+    **Tipo de respuesta:** `Engine` <br><br>
+
+- `/engines?page&take`
+
+    **Tipo de respuesta:** `DataCollection<Engine>`
+
+#### Parametros de consulta
+| Nombre | Tipo |
+|--------|------|
+| id | `int` |
+| page | `int` |
+| take | `int` |
+
+### **Engine**
 | Nombre | Tipo |
 |--------|------|
 | id | `int` |
@@ -115,7 +178,7 @@ Web API sencilla para consultar información general sobre algunos videojuegos. 
 | languages | `string[]` |
 | web | `string` \| `null` |
 | games | `EngineGame[]` |
-#### **EngineGame**
+### **EngineGame**
 | Nombre | Tipo |
 |--------|------|
 | name | `string` |
